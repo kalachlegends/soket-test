@@ -1,26 +1,30 @@
 
 import { useState, useContext, useEffect } from 'react';
-import { PhoenixSocketContext } from './PhoenixSocketContext';
 
-const useChannel = (channelName) => {
-    const [channel, setChannel] = useState();
-    const { socket } = useContext(PhoenixSocketContext);
+const useChannel = (socket, channelName, arrayEventCallback) => {
+    const [channel, setChannel] = useState(null);
 
     useEffect(() => {
+
         const phoenixChannel = socket.channel(channelName);
-
+        console.log(phoenixChannel)
         phoenixChannel.join().receive('ok', () => {
-            setChannel(phoenixChannel);
-        });
+            console.log("ok")
+            setChannel(phoenixChannel)
+        }).receive("error", resp => { console.log("Unable to join", resp) })
 
-        // leave the channel when the component unmounts
+        arrayEventCallback.forEach(({ event, callback }) => {
+            phoenixChannel.on(event, callback);
+        });
+  
+
         return () => {
             phoenixChannel.leave();
         };
     }, []);
     // only connect to the channel once on component mount
     // by passing the empty array as a second arg to useEffect
-
+    console.log(channel)
     return [channel];
 };
 
