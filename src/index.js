@@ -6,12 +6,16 @@ import ResgisterPage from './pages/ResgisterPage';
 import HomePage from './pages/HomePage';
 import ChatPage from './pages/ChatPage.jsx';
 import reportWebVitals from './reportWebVitals';
+import ProtectedRoute from './components/ProtectedRoute';
 import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
+  Redirect
 } from "react-router-dom"
 
+const isAuth = localStorage.getItem("isAuth")
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,7 +24,11 @@ root.render(
       <App>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/chat" element={<ChatPage />} />
+
+
+          <Route path="/chat" element={
+            <ProtectedRoute><ChatPage /></ProtectedRoute>} />
+
           <Route path="/register" element={<ResgisterPage />} />
         </Routes>
       </App>

@@ -13,13 +13,14 @@ export default function Register() {
         <Box
             component="form"
             sx={{
-                '& .MuiTextField-root': {
-                    m: 1,
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "column",
 
-                },
+
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+
+                gap: "10px",
+
             }}
             noValidate={false}
             autoComplete="off"
@@ -57,9 +58,12 @@ export default function Register() {
             />
 
             <Button
-                onClick={(e) => registerFunc()} variant="contained">Зарегистрироваться</Button>
+                onClick={(e) => registerFunc()}
+                variant="contained"
+                sx={{ width: "100%" }}
+            >Зарегистрироваться</Button>
 
-        </Box>
+        </Box >
 
     )
 }

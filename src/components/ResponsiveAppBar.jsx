@@ -13,7 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
-
+import MenuBar from './MenuBar';
+import { AuthContext } from '../context/AuthContext'
 const pages = [
     { title: "Домой", link: "/" },
     { title: "Чат", link: "/chat" }
@@ -24,7 +25,9 @@ const ResponsiveAppBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-    const [isLogin, setisLogin] = React.useState(localStorage.getItem("isLogin") || false);
+
+    const AuthContextUse = React.useContext(AuthContext)
+    console.log(AuthContextUse)
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -125,7 +128,7 @@ const ResponsiveAppBar = () => {
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Typography
+                        {!AuthContextUse.isAuth ? <Typography
 
 
                             component={"a"}
@@ -133,35 +136,10 @@ const ResponsiveAppBar = () => {
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             <Link to={"/register"}> Регистрация</Link>
-                        </Typography>
+                        </Typography> : <MenuBar />}
 
-                        {/* <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu> */}
+
+
                     </Box>
                 </Toolbar>
             </Container>
