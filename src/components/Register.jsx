@@ -26,6 +26,16 @@ export default function Register() {
             autoComplete="off"
         >
             <Typography variant="h3" sx={{ marginBottom: "30px" }}  >Регистрация</Typography>
+
+            <TextField
+
+                id="outlined-error-helper-text"
+                label="Email"
+                required
+                error={errorFind(message.message, "email")}
+                helperText={errorFind(message.message, "email")}
+                onChange={(e) => setState({ ...state, email: e.target.value })}
+            />
             <TextField
 
                 id=""
@@ -35,6 +45,7 @@ export default function Register() {
                 helperText={errorFind(message.message, "login")}
                 onChange={(e) => setState({ ...state, login: e.target.value })}
             />
+
             <TextField
 
                 required
@@ -46,15 +57,16 @@ export default function Register() {
                 helperText={errorFind(message.message, "password")}
                 onChange={(e) => setState({ ...state, password: e.target.value })}
             />
-
             <TextField
 
-                id="outlined-error-helper-text"
-                label="Email"
                 required
-                error={errorFind(message.message, "email")}
-                helperText={errorFind(message.message, "email")}
-                onChange={(e) => setState({ ...state, email: e.target.value })}
+                id="outlined-error-helper-text"
+                label="Pasword"
+                defaultValue=""
+                type="password"
+                error={errorFind(message.message, "password")}
+                helperText={errorFind(message.message, "password")}
+                onChange={(e) => setState({ ...state, repassword: e.target.value })}
             />
 
             <Button

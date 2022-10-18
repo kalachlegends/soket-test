@@ -1,12 +1,10 @@
 import { AuthContext } from "../context/AuthContext"
 import { useContext } from "react";
 const useLogout = () => {
+    const context = useContext(AuthContext);
     const useFunc = () => {
-        const context = useContext(AuthContext);
-        context.setAuth(null)
-        context.setToken(null)
-        localStorage.setItem("isAuth", "")
-        localStorage.setItem("token", "")
+        context.setAuth("")
+        context.setToken("")
     }
     return [useFunc]
 }

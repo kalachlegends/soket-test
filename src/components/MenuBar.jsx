@@ -1,23 +1,18 @@
 import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { Navigate, useNavigate } from 'react-router-dom';
 import useLogout from '../hooks/useLogout';
+
 const MenuBar = () => {
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-    const [funcLogout] = useLogout()
+    const [logout] = useLogout()
+    const navigate = useNavigate()
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -61,7 +56,8 @@ const MenuBar = () => {
             >
                 <MenuItem onClick={handleCloseUserMenu}>
                     <Typography textAlign="center" onClick={() => {
-                        funcLogout()
+                        logout()
+                        navigate("/")
                     }}>Logout</Typography>
                 </MenuItem>
             </Menu>

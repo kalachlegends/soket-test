@@ -136,6 +136,7 @@ const ResponsiveAppBar = () => {
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             <Link to={"/register"}> Регистрация</Link>
+                            <Link to={"/login"}> Авторизация</Link>
                         </Typography> : <MenuBar />}
 
 

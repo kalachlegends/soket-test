@@ -5,6 +5,7 @@ import App from './App';
 import ResgisterPage from './pages/ResgisterPage';
 import HomePage from './pages/HomePage';
 import ChatPage from './pages/ChatPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
 import reportWebVitals from './reportWebVitals';
 import ProtectedRoute from './components/ProtectedRoute';
 import {
@@ -30,6 +31,7 @@ root.render(
             <ProtectedRoute><ChatPage /></ProtectedRoute>} />
 
           <Route path="/register" element={<ResgisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </App>
     </React.StrictMode>

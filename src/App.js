@@ -6,21 +6,27 @@ import { Socket } from 'phoenix';
 import { SocketContext } from './context/SocketContext'
 import { AuthContext } from './context/AuthContext.js'
 import ResponsiveAppBar from './components/ResponsiveAppBar.jsx';
-import Register from './components/Register.jsx';
-import axios from './axios'
+
 import Container from '@mui/material/Container';
 function App({ children }) {
-  const socket = new Socket('ws://localhost:10606/socket')
+  const socket = new Socket('ws://192.168.0.114:10606/socket')
   socket.connect();
   const [isAuth, setAuth] = useState(localStorage.getItem("isAuth"));
   const [token, setToken] = useState(localStorage.getItem("token"));
-
+  const setIsAuthFunc = (auth) => {
+    setAuth(auth)
+    localStorage.setItem("isAuth", auth)
+  }
+  const setTokenFunc = (token) => {
+    setToken(token)
+    localStorage.setItem("isAuth", token)
+  }
   return (
     <AuthContext.Provider value={{
       isAuth,
       token,
-      setAuth,
-      setToken
+      setAuth: setIsAuthFunc,
+      setToken: setTokenFunc
     }}>
       <SocketContext.Provider value={socket}>
         <div className="App">
