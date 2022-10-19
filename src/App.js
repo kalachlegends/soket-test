@@ -6,10 +6,12 @@ import { Socket } from 'phoenix';
 import { SocketContext } from './context/SocketContext'
 import { AuthContext } from './context/AuthContext.js'
 import ResponsiveAppBar from './components/ResponsiveAppBar.jsx';
+import { Provider } from 'react-redux'
+import store from './store'
 
 import Container from '@mui/material/Container';
 function App({ children }) {
-  const socket = new Socket('ws://192.168.0.114:10606/socket')
+  const socket = new Socket('ws://192.168.0.126:10606/socket')
   socket.connect();
   const [isAuth, setAuth] = useState(localStorage.getItem("isAuth"));
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -19,8 +21,9 @@ function App({ children }) {
   }
   const setTokenFunc = (token) => {
     setToken(token)
-    localStorage.setItem("isAuth", token)
+    localStorage.setItem("token", token)
   }
+
   return (
     <AuthContext.Provider value={{
       isAuth,

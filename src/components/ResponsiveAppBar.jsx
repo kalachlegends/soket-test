@@ -15,18 +15,17 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import MenuBar from './MenuBar';
 import { AuthContext } from '../context/AuthContext'
-const pages = [
-    { title: "Домой", link: "/" },
-    { title: "Чат", link: "/chat" }
-];
+
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-
     const AuthContextUse = React.useContext(AuthContext)
+    const pages = [
+        { title: "Домой", link: "/", isAuth: true },
+        { title: "Чат", link: "/chat", isAuth: AuthContextUse.isAuth }
+    ];
     console.log(AuthContextUse)
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -45,7 +44,7 @@ const ResponsiveAppBar = () => {
 
     return (
 
-        <AppBar position="static">
+        <AppBar position="static" >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Link to="/">
@@ -79,14 +78,13 @@ const ResponsiveAppBar = () => {
                             onClose={handleCloseNavMenu}
                             sx={{
                                 display: { xs: 'block', md: 'none' },
-                            }}
-                        >
+                            }}>
                             {pages.map((page) => (
-                                <MenuItem key={page.link} onClick={handleCloseNavMenu}>
+                                !page.isAuth ? <MenuItem key={page.link} onClick={handleCloseNavMenu}>
                                     <Link to={page.link}>
                                         <Typography textAlign="center">{page.title}</Typography>
                                     </Link>
-                                </MenuItem>
+                                </MenuItem> : ""
                             ))}
                         </Menu>
                     </Box>
@@ -114,7 +112,7 @@ const ResponsiveAppBar = () => {
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
-                            <Link to={page.link}>
+                            page.isAuth ? <Link to={page.link}>
                                 <Button
                                     key={page.link}
                                     onClick={handleCloseNavMenu}
@@ -123,20 +121,38 @@ const ResponsiveAppBar = () => {
                                     {page.title}
 
                                 </Button>
-                            </Link>
+                            </Link> : ""
+
                         ))}
                     </Box>
 
-                    <Box sx={{ flexGrow: 0 }}>
+                    <Box sx={{ flexGrow: 0, display: "flex", gap: "10px" }}>
                         {!AuthContextUse.isAuth ? <Typography
 
 
-                            component={"a"}
 
-                            sx={{ my: 2, color: 'white', display: 'block' }}
+
+                            sx={{ color: 'white', display: "flex", gap: "20px" }}
                         >
-                            <Link to={"/register"}> Регистрация</Link>
-                            <Link to={"/login"}> Авторизация</Link>
+                            <Link to={"/register"}>
+                                <Button
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                >
+                                    Регистрация
+
+                                </Button>
+                            </Link>
+                            <Link to={"/login"}>
+                                <Button
+
+
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                >
+                                    Авторизоваться
+
+                                </Button>
+                            </Link>
+
                         </Typography> : <MenuBar />}
 
 

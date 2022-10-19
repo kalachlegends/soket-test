@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 const Login = () => {
 
-    const [validate, setState, state, login] = useLogin()
+    const [errors, setState, state, login] = useLogin()
     return (
         <Box
             component="form"
@@ -42,8 +42,8 @@ const Login = () => {
                 required
                 label="Password"
                 type="password"
-                error={state.errors}
-                helperText={"Не правильный логин или пароль"}
+                error={errors}
+                helperText={!errors ? "" : "Не правильный логин или пароль"}
                 onChange={(e) => setState({ ...state, password: e.target.value })}
             />
 

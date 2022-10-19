@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import axios from '../axios'
-import useErrorForm from "./useErrorForm";
+
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 const useLogin = () => {
@@ -9,19 +9,21 @@ const useLogin = () => {
     const [state, setstate] = useState({
         login: "",
         passsword: "",
-        errors: ""
     });
-    const logout = () => {
+    const [errors, seterrors] = useState("");
+    const login = () => {
+        console.log(state)
         axios.post("/api/auth/login", state).then(({ data }) => {
+            seterrors("")
             context.setAuth("true")
             context.setToken(data.token)
             navigate("/")
 
         }).catch(({ response }) => {
-            setstate({ ...state, errors: response.data.message })
+            seterrors("Не правильный логин или пароль")
         })
     }
-    return [useErrorForm, setstate, state, logout]
+    return [errors, setstate, state, login]
 }
 
 export default useLogin
