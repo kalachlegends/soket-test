@@ -11,8 +11,8 @@ import store from './store'
 
 import Container from '@mui/material/Container';
 function App({ children }) {
-  // const socket = new Socket('ws://192.168.0.126:10606/socket')
-  // socket.connect();
+  const socket = new Socket('ws://192.168.0.126:10606/socket')
+  socket.connect();
   const [isAuth, setAuth] = useState(localStorage.getItem("isAuth"));
   const [token, setToken] = useState(localStorage.getItem("token"));
   const setIsAuthFunc = (auth) => {
